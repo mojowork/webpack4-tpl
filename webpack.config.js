@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PurifyCssWebpack = require('purifycss-webpack');
+const glob = require('glob');
 const webpack = require('webpack');
 
 module.exports = {
@@ -17,8 +19,7 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     use: ['css-loader', 'postcss-loader'],
@@ -44,7 +45,7 @@ module.exports = {
                     }
                 }]
             }
-            
+
         ]
     },
 
@@ -65,6 +66,9 @@ module.exports = {
             filename: 'test.html',
             // hash: true,
             template: './test.html'
+        }),
+        new PurifyCssWebpack({
+            paths: glob.sync(path.join(__dirname, '/*.html'))
         })
     ],
     devServer: {

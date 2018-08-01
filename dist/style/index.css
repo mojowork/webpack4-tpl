@@ -1,6 +1,9 @@
-body{
-    background: url(../assets/2c04e91fcfe189e5f45726db4e83ae96.png);
-}div {
+body {
+  background: url(../assets/2c04e91fcfe189e5f45726db4e83ae96.png);
+}
+
+div {
   background-color: #9d99d9;
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg); }
+  transform: rotate(45deg);
+}
