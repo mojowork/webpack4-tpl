@@ -1,1 +1,2 @@
-alert('^_^')
+import './styles/index.css';
+alert('^_^');
