@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
 
@@ -14,10 +16,12 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: './index.html',
             chunks: ['app'],
-            minify: true
+            // minify: true
         }),
         new HtmlWebpackPlugin({
             minify: {
@@ -25,8 +29,15 @@ module.exports = {
             },
             chunks: ['main'],
             filename: 'test.html',
-            hash: true,
-            template: './test.html',
+            // hash: true,
+            template: './test.html'
         })
-    ]
+    ],
+    devServer: {
+        // contentBase: path.resolve(__dirname, 'dist'),
+        host: '127.0.0.1',
+        port: '9527',
+        open: true,
+        hot: true
+    }
 }
