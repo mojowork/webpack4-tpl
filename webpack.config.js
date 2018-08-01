@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -19,14 +20,19 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader']
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader',
+                    fallback: 'style-loader',
+                    publicPath: '../'
+                })
             },
             {
                 test: /\.(png|jpg|gif)$/,
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        limit: 50
+                        limit: 50,
+                        outputPath: 'assets'
                     }
                 }]
             }
@@ -36,6 +42,7 @@ module.exports = {
 
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new ExtractTextPlugin('style/index.css'),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: './index.html',
